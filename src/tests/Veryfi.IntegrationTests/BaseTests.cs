@@ -10,7 +10,7 @@ namespace Veryfi.IntegrationTests
     {
         public static async Task ApiTestAsync(Func<VeryfiApi, CancellationToken, Task> action)
         {
-            using var source = new CancellationTokenSource(TimeSpan.FromSeconds(15));
+            using var source = new CancellationTokenSource(TimeSpan.FromSeconds(120));
             var cancellationToken = source.Token;
 
             var username = 
