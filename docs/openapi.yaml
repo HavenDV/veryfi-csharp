@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   description:  |
     [https://www.veryfi.com/](https://www.veryfi.com/).
-  version: "1.0.0"
+  version: "7.0.0"
   title: Verify API
   contact:
     email: havendv@gmail.com
@@ -37,8 +37,12 @@ paths:
         
       parameters:
         - $ref: '#/components/parameters/Query'
-        - $ref: '#/components/parameters/From'
-        - $ref: '#/components/parameters/To'
+        - $ref: '#/components/parameters/Tag'
+        - $ref: '#/components/parameters/ExternalId'
+        - $ref: '#/components/parameters/CreatedGte'
+        - $ref: '#/components/parameters/CreatedGt'
+        - $ref: '#/components/parameters/CreatedLte'
+        - $ref: '#/components/parameters/CreatedLt'
         
       responses:
         '200':
@@ -77,6 +81,7 @@ paths:
         
       parameters:
         - $ref: '#/components/parameters/DocumentId'
+        - $ref: '#/components/parameters/ReturnAuditTrail'
         
       responses:
         '200':
@@ -722,6 +727,12 @@ components:
           type: integer
           description: 'When sending a long document to Veryfi for processing, this parameter controls how many pages of the document will be read and processed, starting from page 1.'
           example: 10
+        tags:
+          type: array
+          description: 'List of tags'
+          items:
+            type: string
+            example: 'tag1'
         categories:
           type: array
           description: 'List of categories to use when categorizing the document'
@@ -790,21 +801,58 @@ components:
       schema:
         type: string
         
-    From:
+    Tag:
+      name: tag
+      in: query
+      description: Tag to search.
+      schema:
+        type: string
+        
+    ExternalId:
+      name: external_id
+      in: query
+      description: External Id to search.
+      schema:
+        type: string
+        
+    CreatedGte:
       name: created__gte
       in: query
-      description: Start date to search.
+      description: Start date to search(including it).
       schema:
         type: string
         format: date-time
         
-    To:
-      name: created__lt
+    CreatedGt:
+      name: created__gt
       in: query
-      description: End date to search.
+      description: Start date to search(including it).
       schema:
         type: string
         format: date-time
+        
+    CreatedLte:
+      name: created__lte
+      in: query
+      description: End date to search(including it).
+      schema:
+        type: string
+        format: date-time
+        
+    CreatedLt:
+      name: created__lt
+      in: query
+      description: End date to search(including it).
+      schema:
+        type: string
+        format: date-time
+        
+    ReturnAuditTrail:
+      name: return_audit_trail
+      in: query
+      description: ''
+      schema:
+        type: string
         
   requestBodies:
     DocumentUploadOptions:
@@ -913,3 +961,4 @@ components:
       type: apiKey
       in: header
       name: AUTHORIZATION
+      description: 'Example: apiKey $username:$apiKey'
