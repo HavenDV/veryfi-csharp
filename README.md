@@ -47,8 +47,40 @@ var document = await api.ProcessDocumentAsync(
 var document = await api.ProcessDocumentAsync(
     new DocumentUploadOptions
     {
-        File_name = "receipt_public.jpg",
         File_url = "https://raw.githubusercontent.com/HavenDV/veryfi-csharp/master/src/tests/Veryfi.IntegrationTests/Assets/receipt_public.jpg",
+    });
+
+// Process urls
+var document = await api.ProcessDocumentAsync(
+    new DocumentUploadOptions
+    {
+        File_urls = new [] {
+            "https://raw.githubusercontent.com/HavenDV/veryfi-csharp/master/src/tests/Veryfi.IntegrationTests/Assets/receipt_public.jpg",
+        },
+    });
+
+// Process stream
+var document = await api.ProcessDocumentFileAsync(
+    new Stream(),
+    new DocumentUploadOptions
+    {
+        File_name = "fileName.jpg",
+    });
+
+// Process bytes
+var document = await api.ProcessDocumentFileAsync(
+    new byte[0],
+    new DocumentUploadOptions
+    {
+        File_name = "fileName.jpg",
+    });
+
+// Process path
+var document = await api.ProcessDocumentFileAsync(
+    "C:/invoice.png",
+    new DocumentUploadOptions
+    {
+        // any custom options, File_name is not required.
     });
 
 //
