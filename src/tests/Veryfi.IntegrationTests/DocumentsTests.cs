@@ -10,7 +10,7 @@ namespace Veryfi.IntegrationTests
     [TestClass]
     public class DocumentsTests
     {
-        private static async Task ProcessDocumentTestAsync(
+        private static async Task CheckDocumentAndDeleteAsync(
             VeryfiApi api,
             Document document,
             CancellationToken cancellationToken)
@@ -30,18 +30,6 @@ namespace Veryfi.IntegrationTests
             deleteStatus.Status.Should().Be("ok");
         }
 
-        private static async Task ProcessDocumentTestAsync(
-            VeryfiApi api,
-            DocumentUploadOptions options,
-            CancellationToken cancellationToken)
-        {
-            var document = await api.ProcessDocumentAsync(
-                options,
-                cancellationToken);
-
-            await ProcessDocumentTestAsync(api, document, cancellationToken);
-        }
-
         [DataTestMethod]
         [DataRow("invoice1.png")]
         [DataRow("receipt.png")]
@@ -52,12 +40,16 @@ namespace Veryfi.IntegrationTests
             
             await BaseTests.ApiTestAsync(async (api, cancellationToken) =>
             {
-                await ProcessDocumentTestAsync(
-                    api,
+                var document = await api.ProcessDocumentAsync(
                     new DocumentUploadOptions
                     {
                         File_url = url,
                     },
+                    cancellationToken);
+
+                await CheckDocumentAndDeleteAsync(
+                    api,
+                    document,
                     cancellationToken);
             });
         }
@@ -77,12 +69,16 @@ namespace Veryfi.IntegrationTests
                 
             await BaseTests.ApiTestAsync(async (api, cancellationToken) =>
             {
-                await ProcessDocumentTestAsync(
-                    api,
+                var document = await api.ProcessDocumentAsync(
                     new DocumentUploadOptions
                     {
                         File_urls = urls,
                     },
+                    cancellationToken);
+
+                await CheckDocumentAndDeleteAsync(
+                    api,
+                    document,
                     cancellationToken);
             });
         }
@@ -97,13 +93,17 @@ namespace Veryfi.IntegrationTests
 
             await BaseTests.ApiTestAsync(async (api, cancellationToken) =>
             {
-                await ProcessDocumentTestAsync(
-                    api,
+                var document = await api.ProcessDocumentAsync(
                     new DocumentUploadOptions
                     {
                         File_name = file.FileName,
                         File_data = Convert.ToBase64String(file.AsBytes()),
                     },
+                    cancellationToken);
+
+                await CheckDocumentAndDeleteAsync(
+                    api,
+                    document,
                     cancellationToken);
             });
         }
@@ -118,15 +118,17 @@ namespace Veryfi.IntegrationTests
 
             await BaseTests.ApiTestAsync(async (api, cancellationToken) =>
             {
-                await ProcessDocumentTestAsync(
+                var document = await api.ProcessDocumentFileAsync(
+                    file.AsStream(),
+                    new DocumentUploadOptions
+                    {
+                        File_name = file.FileName,
+                    },
+                    cancellationToken);
+
+                await CheckDocumentAndDeleteAsync(
                     api,
-                    await api.ProcessDocumentFileAsync(
-                        file.AsStream(),
-                        new DocumentUploadOptions
-                        {
-                            File_name = file.FileName,
-                        },
-                        cancellationToken),
+                    document,
                     cancellationToken);
             });
         }
