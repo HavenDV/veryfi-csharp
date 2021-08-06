@@ -511,6 +511,7 @@ components:
         duplicate_of:
           type: integer
           format: int64
+          nullable: true
           example: 38995348
         external_id:
           type: string
