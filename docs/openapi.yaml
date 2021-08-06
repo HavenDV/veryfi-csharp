@@ -668,7 +668,7 @@ components:
         warnings:
           type: array
           items:
-            type: string
+            $ref: '#/components/schemas/OperationStatus'
       
     DocumentUploadOptions:
       type: object
