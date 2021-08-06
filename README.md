@@ -6,7 +6,7 @@
 [![License](https://img.shields.io/github/license/HavenDV/veryfi-csharp.svg?label=License&maxAge=86400)](LICENSE) 
 [![Requirements](https://img.shields.io/badge/Requirements-.NET%20Standard%202.0-blue.svg)](https://github.com/dotnet/standard/blob/master/docs/versions/netstandard2.0.md) 
 [![Requirements](https://img.shields.io/badge/Requirements-.NET%20Framework%204.5-blue.svg)](https://github.com/microsoft/dotnet/tree/master/releases/net45) 
-[![Build Status](https://github.com/HavenDV/veryfi-csharp/workflows/.NET/badge.svg?branch=master)](https://github.com/HavenDV/veryfi-csharp/actions?query=workflow%3A%22.NET%22)
+[![Build Status](https://github.com/HavenDV/veryfi-csharp/workflows/.NET/badge.svg?branch=master)](https://github.com/HavenDV/veryfi-csharp/actions/workflows/dotnet.yml)
 
 **Veryfi** is a C# Client Library for communicating with the [Veryfi OCR API](https://veryfi.com/api/)
 
@@ -46,8 +46,8 @@ var document = await api.ProcessDocumentAsync(
 
 ## Live Example
 
-C# .NET Fiddle - https://dotnetfiddle.net/i5MmNp  
-VB.NET .NET Fiddle - https://dotnetfiddle.net/EUszSY  
+C# .NET Fiddle - https://dotnetfiddle.net/NyGsqD  
+VB.NET .NET Fiddle - https://dotnetfiddle.net/4B8z6n  
 
 ## Need help?
 If you run into any issue or need help installing or using the library, please contact support@veryfi.com.
