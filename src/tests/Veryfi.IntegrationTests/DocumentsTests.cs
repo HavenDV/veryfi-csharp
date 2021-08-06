@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
@@ -55,8 +56,32 @@ namespace Veryfi.IntegrationTests
                     api,
                     new DocumentUploadOptions
                     {
-                        File_name = fileName,
                         File_url = url,
+                    },
+                    cancellationToken);
+            });
+        }
+
+        [TestMethod]
+        public async Task ProcessUrlsTest()
+        {
+            var urls = new[]
+                {
+                    "invoice1.png",
+                    "receipt.png",
+                    "receipt_public.jpg",
+                }
+                .Select(static fileName =>
+                    $"https://raw.githubusercontent.com/HavenDV/veryfi-csharp/master/src/tests/Veryfi.IntegrationTests/Assets/{fileName}")
+                .ToArray();
+                
+            await BaseTests.ApiTestAsync(async (api, cancellationToken) =>
+            {
+                await ProcessDocumentTestAsync(
+                    api,
+                    new DocumentUploadOptions
+                    {
+                        File_urls = urls,
                     },
                     cancellationToken);
             });
