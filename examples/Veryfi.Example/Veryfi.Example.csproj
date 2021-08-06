@@ -7,8 +7,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <!--<ItemGroup>
-    <PackageReference Include="Veryfi" Version="1.0.0" />
-  </ItemGroup>-->
+  <ItemGroup>
+    <PackageReference Include="Veryfi" Version="1.0.2" />
+  </ItemGroup>
 
 </Project>
