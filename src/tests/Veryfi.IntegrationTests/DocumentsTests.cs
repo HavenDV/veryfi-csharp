@@ -33,31 +33,46 @@ namespace Veryfi.IntegrationTests
             deleteStatus.Status.Should().Be("ok");
         }
 
-        [TestMethod]
-        public async Task ProcessUrlTest() => await BaseTests.ApiTestAsync(async (api, cancellationToken) =>
+        [DataTestMethod]
+        [DataRow("invoice1.png")]
+        [DataRow("receipt.png")]
+        [DataRow("receipt_public.jpg")]
+        public async Task ProcessUrlTest(string fileName)
         {
-            await ProcessTestAsync(
-                api,
-                new DocumentUploadOptions
-                {
-                    File_name = "receipt_public.jpg",
-                    File_url = "https://raw.githubusercontent.com/HavenDV/veryfi-csharp/master/src/tests/Veryfi.IntegrationTests/Assets/receipt_public.jpg",
-                },
-                cancellationToken);
-        });
+            var url = $"https://raw.githubusercontent.com/HavenDV/veryfi-csharp/master/src/tests/Veryfi.IntegrationTests/Assets/{fileName}";
+            
+            await BaseTests.ApiTestAsync(async (api, cancellationToken) =>
+            {
+                await ProcessTestAsync(
+                    api,
+                    new DocumentUploadOptions
+                    {
+                        File_name = fileName,
+                        File_url = url,
+                    },
+                    cancellationToken);
+            });
+        }
 
-        [TestMethod]
-        public async Task ProcessBase64Test() => await BaseTests.ApiTestAsync(async (api, cancellationToken) =>
+        [DataTestMethod]
+        [DataRow("invoice1.png")]
+        [DataRow("receipt.png")]
+        [DataRow("receipt_public.jpg")]
+        public async Task ProcessBase64Test(string fileName)
         {
-            var file = H.Resources.receipt_public_jpg;
-            await ProcessTestAsync(
-                api,
-                new DocumentUploadOptions
-                {
-                    File_name = file.FileName,
-                    File_data = Convert.ToBase64String(file.AsBytes()),
-                },
-                cancellationToken);
-        });
+            var file = new H.Resource(fileName);
+
+            await BaseTests.ApiTestAsync(async (api, cancellationToken) =>
+            {
+                await ProcessTestAsync(
+                    api,
+                    new DocumentUploadOptions
+                    {
+                        File_name = file.FileName,
+                        File_data = Convert.ToBase64String(file.AsBytes()),
+                    },
+                    cancellationToken);
+            });
+        }
     }
 }
