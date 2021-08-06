@@ -358,10 +358,14 @@ components:
       properties:
         name:
           type: string
-          example: 'name'
+          example: 'SALES'
         order:
           type: integer
           example: 0
+        base:
+          type: number
+          format: double
+          example: 1.11
         rate:
           type: number
           format: double
@@ -415,7 +419,7 @@ components:
           example: ''
         sku:
           type: string
-          example: ''
+          example: '038902058959'
         start_date:
           type: string
           example: ''
@@ -459,16 +463,16 @@ components:
           example: ''
         bill_to_address:
           type: string
-          example: ''
+          example: '2 Court Square\nNew York, NY 12210'
         bill_to_name:
           type: string
-          example: ''
+          example: 'John Smith'
         bill_to_vat_number:
           type: string
           example: ''
         card_number:
           type: string
-          example: ''
+          example: '7373'
         cashback:
           type: number
           format: double
@@ -497,16 +501,17 @@ components:
           example: ''
         document_title:
           type: string
-          example: ''
+          example: 'INVOICE'
         document_type:
           type: string
-          example: 'receipt'
+          example: 'invoice'
         due_date:
           type: string
-          example: ''
+          example: '2019-02-26'
         duplicate_of:
-          type: string
-          example: ''
+          type: integer
+          format: int64
+          example: 38995348
         external_id:
           type: string
           example: ''
@@ -527,7 +532,7 @@ components:
           example: '98'
         is_duplicate:
           type: integer
-          example: 0
+          example: 1
         line_items:
           type: array
           items:
@@ -546,7 +551,7 @@ components:
           example: 'Cash'
         payment_terms:
           type: string
-          example: ''
+          example: '15 days'
         payment_type:
           type: string
           example: 'cash'
@@ -555,7 +560,7 @@ components:
           example: '165 1 5 98'
         purchase_order_number:
           type: string
-          example: ''
+          example: '2312/2019'
         rounding:
           type: number
           format: double
@@ -571,10 +576,10 @@ components:
           example: ''
         ship_to_address:
           type: string
-          example: ''
+          example: '3787 Pineview Drive\nCambridge, MA 12210'
         ship_to_name:
           type: string
-          example: ''
+          example: 'John Smith'
         shipping:
           type: number
           format: double
@@ -589,7 +594,7 @@ components:
         tax:
           type: number
           format: double
-          example: 0.0
+          example: 12.5
         tax_lines:
           type: array
           items:
@@ -597,7 +602,7 @@ components:
         tip:
           type: number
           format: double
-          example: 0.0
+          example: 12.5
         total:
           type: number
           format: double
@@ -619,7 +624,7 @@ components:
           properties:
             address:
               type: string
-              example: ''
+              example: '1912 Harvest Lane\nNew York, NY 12210'
             category:
               type: string
               example: 'Fast Food'
