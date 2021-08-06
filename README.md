@@ -91,6 +91,9 @@ var document = await api.ProcessDocumentFileAsync(
 C# .NET Fiddle - https://dotnetfiddle.net/NyGsqD  
 VB.NET .NET Fiddle - https://dotnetfiddle.net/4B8z6n  
 
+## Developers
+The code is generated using https://github.com/RicoSuter/NSwag
+
 ## Need help?
 If you run into any issue or need help installing or using the library, please contact support@veryfi.com.
 
