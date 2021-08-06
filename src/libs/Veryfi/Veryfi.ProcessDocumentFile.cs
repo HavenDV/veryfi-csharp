@@ -147,5 +147,49 @@ namespace Veryfi
                     null);
             }
         }
+
+        /// <param name="bytes"></param>
+        /// <param name="options"></param>
+        /// <param name="cancellationToken">
+        /// A cancellation token that can be used by other objects or threads to receive notice of cancellation.
+        /// </param>
+        /// <summary>Process a Document.</summary>
+        /// <returns>Document.</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public async Task<Document> ProcessDocumentFileAsync(
+            byte[] bytes,
+            DocumentUploadOptions options,
+            CancellationToken cancellationToken = default)
+        {
+            bytes = bytes ?? throw new ArgumentNullException(nameof(bytes));
+            options = options ?? throw new ArgumentNullException(nameof(options));
+
+            using var stream = new MemoryStream(bytes);
+
+            return await ProcessDocumentFileAsync(stream, options, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <param name="path"></param>
+        /// <param name="options"></param>
+        /// <param name="cancellationToken">
+        /// A cancellation token that can be used by other objects or threads to receive notice of cancellation.
+        /// </param>
+        /// <summary>Process a Document.</summary>
+        /// <returns>Document.</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public async Task<Document> ProcessDocumentFileAsync(
+            string path,
+            DocumentUploadOptions? options = null,
+            CancellationToken cancellationToken = default)
+        {
+            path = path ?? throw new ArgumentNullException(nameof(path));
+
+            options ??= new DocumentUploadOptions();
+            options.File_name = Path.GetFileName(path);
+
+            using var stream = File.OpenRead(path);
+
+            return await ProcessDocumentFileAsync(stream, options, cancellationToken).ConfigureAwait(false);
+        }
     }
 }
