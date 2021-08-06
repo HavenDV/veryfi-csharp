@@ -9,15 +9,11 @@ namespace Veryfi.IntegrationTests
     [TestClass]
     public class DocumentsTests
     {
-        private static async Task ProcessTestAsync(
+        private static async Task ProcessDocumentTestAsync(
             VeryfiApi api,
-            DocumentUploadOptions options,
+            Document document,
             CancellationToken cancellationToken)
         {
-            var document = await api.ProcessDocumentAsync(
-                options,
-                cancellationToken);
-
             document.Should().NotBeNull();
 
             var documents = await api.GetDocumentsAsync(
@@ -33,6 +29,18 @@ namespace Veryfi.IntegrationTests
             deleteStatus.Status.Should().Be("ok");
         }
 
+        private static async Task ProcessDocumentTestAsync(
+            VeryfiApi api,
+            DocumentUploadOptions options,
+            CancellationToken cancellationToken)
+        {
+            var document = await api.ProcessDocumentAsync(
+                options,
+                cancellationToken);
+
+            await ProcessDocumentTestAsync(api, document, cancellationToken);
+        }
+
         [DataTestMethod]
         [DataRow("invoice1.png")]
         [DataRow("receipt.png")]
@@ -43,7 +51,7 @@ namespace Veryfi.IntegrationTests
             
             await BaseTests.ApiTestAsync(async (api, cancellationToken) =>
             {
-                await ProcessTestAsync(
+                await ProcessDocumentTestAsync(
                     api,
                     new DocumentUploadOptions
                     {
@@ -64,13 +72,36 @@ namespace Veryfi.IntegrationTests
 
             await BaseTests.ApiTestAsync(async (api, cancellationToken) =>
             {
-                await ProcessTestAsync(
+                await ProcessDocumentTestAsync(
                     api,
                     new DocumentUploadOptions
                     {
                         File_name = file.FileName,
                         File_data = Convert.ToBase64String(file.AsBytes()),
                     },
+                    cancellationToken);
+            });
+        }
+
+        [DataTestMethod]
+        [DataRow("invoice1.png")]
+        [DataRow("receipt.png")]
+        [DataRow("receipt_public.jpg")]
+        public async Task ProcessFileTest(string fileName)
+        {
+            var file = new H.Resource(fileName);
+
+            await BaseTests.ApiTestAsync(async (api, cancellationToken) =>
+            {
+                await ProcessDocumentTestAsync(
+                    api,
+                    await api.ProcessDocumentFileAsync(
+                        file.AsStream(),
+                        new DocumentUploadOptions
+                        {
+                            File_name = file.FileName,
+                        },
+                        cancellationToken),
                     cancellationToken);
             });
         }
