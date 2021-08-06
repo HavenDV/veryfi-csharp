@@ -16,12 +16,14 @@ namespace Veryfi
         /// <param name="apiKey"></param>
         /// <param name="clientId"></param>
         /// <param name="httpClient"></param>
+        /// <param name="clientSecret">Used to sign request.</param>
         /// <param name="timeout">Default: 120 seconds.</param>
         public VeryfiApi(
             string username,
             string apiKey,
             string clientId, 
             HttpClient httpClient,
+            string? clientSecret = null,
             TimeSpan? timeout = null) : 
             this(httpClient)
         {
@@ -29,6 +31,7 @@ namespace Veryfi
             apiKey = apiKey ?? throw new ArgumentNullException(nameof(apiKey));
             clientId = clientId ?? throw new ArgumentNullException(nameof(clientId));
             httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
+            ClientSecret = clientSecret ?? string.Empty;
 
             httpClient.Timeout = timeout ?? TimeSpan.FromSeconds(120);
 

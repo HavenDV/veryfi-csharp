@@ -169,7 +169,7 @@ namespace Veryfi
             return await ProcessDocumentFileAsync(stream, options, cancellationToken).ConfigureAwait(false);
         }
 
-        /// <param name="path"></param>
+        /// <param name="path">Path on disk to a file to submit for data extraction.</param>
         /// <param name="options"></param>
         /// <param name="cancellationToken">
         /// A cancellation token that can be used by other objects or threads to receive notice of cancellation.
