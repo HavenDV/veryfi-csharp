@@ -93,6 +93,9 @@ VB.NET .NET Fiddle - https://dotnetfiddle.net/4B8z6n
 
 ## Developers
 The code is generated using https://github.com/RicoSuter/NSwag
+NuGet packages are released and versioned automatically. 
+Any commit with the feat:/fix:/perf: prefix will release a new version of the package 
+(according to https://www.conventionalcommits.org/en/v1.0.0/).
 
 ## Need help?
 If you run into any issue or need help installing or using the library, please contact support@veryfi.com.
