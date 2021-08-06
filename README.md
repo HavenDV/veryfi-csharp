@@ -33,15 +33,25 @@ Install-Package Veryfi
 using Veryfi;
 
 using var client = new HttpClient();
-var api = new VeryfiApi(username, apiKey, clientId, client);
+var api = new VeryfiApi("username", "apiKey", "clientId", client);
 
+// Process Base64
 var document = await api.ProcessDocumentAsync(
     new DocumentUploadOptions
     {
         File_name = "fileName.jpg",
         File_data = Convert.ToBase64String(bytes),
-    },
-    cancellationToken);
+    });
+
+// Process url
+var document = await api.ProcessDocumentAsync(
+    new DocumentUploadOptions
+    {
+        File_name = "receipt_public.jpg",
+        File_url = "https://raw.githubusercontent.com/HavenDV/veryfi-csharp/master/src/tests/Veryfi.IntegrationTests/Assets/receipt_public.jpg",
+    });
+
+//
 ```
 
 ## Live Example
