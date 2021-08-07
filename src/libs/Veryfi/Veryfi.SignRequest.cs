@@ -4,14 +4,11 @@ using System.Linq;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 #pragma warning disable CS8604 // Possible null reference argument.
 #pragma warning disable CA1308 // Normalize strings to uppercase
-#pragma warning disable CA1801 // Review unused parameters
-// ReSharper disable UnusedParameter.Local
 
 namespace Veryfi
 {
@@ -19,24 +16,7 @@ namespace Veryfi
     {
         private string? ClientSecret { get; }
 
-        private static Task PrepareRequestAsync(
-            HttpClient client,
-            HttpRequestMessage request,
-            StringBuilder urlBuilder)
-        {
-            return Task.FromResult(false);
-        }
-
-        private static Task ProcessResponseAsync(
-            HttpClient client,
-            HttpResponseMessage response,
-            CancellationToken cancellationToken)
-        {
-            return Task.FromResult(false);
-        }
-
-        private async Task PrepareRequestAsync(
-            HttpClient client,
+        private async Task SignRequestAsync(
             HttpRequestMessage request,
             string url)
         {
