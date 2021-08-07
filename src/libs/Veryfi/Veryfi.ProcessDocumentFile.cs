@@ -69,6 +69,7 @@ namespace Veryfi
                     { new StringContent($"{options.Async ?? 0}"), "async" },
                     { new StringContent(options.External_id ?? string.Empty), "external_id" },
                     { new StringContent($"{options.Max_pages_to_process ?? 0}"), "max_pages_to_process" },
+                    //{ new StringContent($"[{string.Join(",", options.Tags ?? new List<string>())}]"), "tags" },
                     //{ new StringContent($"[{string.Join(",", options.Categories ?? new List<string>())}]"), "categories" },
                 },
                 Headers =
@@ -80,12 +81,12 @@ namespace Veryfi
                 },
             };
 
-            PrepareRequest(client, request, urlBuilder);
+            await PrepareRequestAsync(client, request, urlBuilder).ConfigureAwait(false);
 
             var url = urlBuilder.ToString();
             request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-            PrepareRequest(client, request, url);
+            await PrepareRequestAsync(client, request, url).ConfigureAwait(false);
 
             using var response = await client.SendAsync(
                 request, 
@@ -102,7 +103,7 @@ namespace Veryfi
                 }
             }
 
-            ProcessResponse(client, response);
+            await ProcessResponseAsync(client, response, cancellationToken).ConfigureAwait(false);
 
             var status = (int)response.StatusCode;
             if (status == 201)

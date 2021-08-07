@@ -22,9 +22,11 @@ namespace Veryfi.IntegrationTests
             var clientId =
                 Environment.GetEnvironmentVariable("VERYFI_CLIENT_ID") ??
                 throw new AssertInconclusiveException("VERYFI_CLIENT_ID environment variable is not found.");
+            var clientSecret = 
+                Environment.GetEnvironmentVariable("VERYFI_CLIENT_SECRET");
 
             using var client = new HttpClient();
-            var api = new VeryfiApi(username, apiKey, clientId, client);
+            var api = new VeryfiApi(username, apiKey, clientId, client, clientSecret);
 
             try
             {
