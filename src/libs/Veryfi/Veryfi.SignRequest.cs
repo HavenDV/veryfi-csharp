@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
@@ -75,6 +76,19 @@ namespace Veryfi
                         }
                     }
 
+                    break;
+
+                default:
+                    var match = Regex.Match(
+                        url,
+                        @"(https://api.veryfi.com/api/v7/partner/documents/)(?<documentId>\d+)");
+                    if (!match.Success)
+                    {
+                        break;
+                    }
+
+                    var documentId = match.Groups["documentId"].Value;
+                    arguments.Add("id", documentId);
                     break;
             }
             var signature = GenerateSignature(ClientSecret, arguments);
