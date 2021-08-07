@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 
@@ -32,6 +33,12 @@ namespace Veryfi
             clientId = clientId ?? throw new ArgumentNullException(nameof(clientId));
             httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
             ClientSecret = clientSecret ?? string.Empty;
+
+#if NET45_OR_GREATER
+#pragma warning disable CA5386 // Avoid hardcoding SecurityProtocolType value
+            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
+#pragma warning restore CA5386 // Avoid hardcoding SecurityProtocolType value
+#endif
 
             httpClient.Timeout = timeout ?? TimeSpan.FromSeconds(120);
 
