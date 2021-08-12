@@ -48,7 +48,7 @@ namespace Veryfi
                             arguments.Add("file_name", options?.File_name ?? string.Empty);
                             arguments.Add("file_data", options?.File_data ?? string.Empty);
                             arguments.Add("categories", string.Join(",", options?.Categories ?? new List<string>()));
-                            arguments.Add("auto_delete", $"{options?.Auto_delete ?? false}".ToLowerInvariant());
+                            arguments.Add("auto_delete", $"{options?.Auto_delete ?? 0}");
                             arguments.Add("boost_mode", $"{options?.Boost_mode ?? 0}");
                             arguments.Add("external_id", options?.External_id ?? string.Empty);
                             arguments.Add("external_id", options?.External_id ?? string.Empty);
