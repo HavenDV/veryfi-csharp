@@ -708,9 +708,9 @@ components:
             example: 'https://raw.githubusercontent.com/veryfi/veryfi-python/master/tests/assets/receipt_public.jpg'
           
         auto_delete:
-          type: boolean
+          type: integer
           description: 'Delete this document from Veryfi after data has been extracted.'
-          example: true
+          example: 1
         boost_mode:
           type: integer
           description: 'Flag that tells Veryfi whether boost mode should be enabled. When set to `1`, Veryfi will skip data enrichment steps, but will process the document faster. Default value for this flag is `0`.'
