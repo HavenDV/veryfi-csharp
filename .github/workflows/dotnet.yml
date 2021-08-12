@@ -48,6 +48,11 @@ jobs:
     
     - name: Run tests
       run: dotnet test --configuration Release
+      env:
+        VERYFI_USERNAME: ${{ secrets.VERYFI_USERNAME }}
+        VERYFI_API_KEY: ${{ secrets.VERYFI_API_KEY }}
+        VERYFI_CLIENT_ID: ${{ secrets.VERYFI_CLIENT_ID }}
+        VERYFI_CLIENT_SECRET: ${{ secrets.VERYFI_CLIENT_SECRET }}
         
     - name: Publish
       if: contains(join(github.event.commits.*.message), 'fix:') || 
